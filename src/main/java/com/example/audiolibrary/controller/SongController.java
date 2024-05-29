@@ -33,4 +33,5 @@ public class SongController {
     public List<Song> searchSongsByArtist(@RequestParam String artist) {
         return songService.searchSongsByArtist(artist);
     }
+
 }

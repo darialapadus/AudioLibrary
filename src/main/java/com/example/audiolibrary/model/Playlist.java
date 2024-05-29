@@ -1,5 +1,6 @@
 package com.example.audiolibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,6 +46,11 @@ public class Playlist {
     public Playlist(String name, User owner) {
         this.name = name;
         this.owner = owner;
+    }
+
+    @JsonIgnore
+    public User getOwner() {
+        return owner;
     }
 
     public void addSong(Song song) {
