@@ -12,11 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import org.springframework.http.ContentDisposition;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.List;
 
 @RestController
 @RequestMapping("/playlists")
@@ -26,6 +27,7 @@ public class PlaylistController {
     private PlaylistService playlistService;
     @Autowired
     private UserRepository userRepository;
+
     @PostMapping("/create")
     public Playlist createPlaylist(@RequestParam String name, @RequestBody User owner) {
         try {
@@ -46,11 +48,21 @@ public class PlaylistController {
        }
    }
 
+//    @GetMapping("/list")
+//    public List<Playlist> listPlaylists(@RequestParam Long ownerId) {
+//        User owner = userRepository.findById(ownerId)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//        return playlistService.listPlaylists(owner);
+//    }
+
+    //Pageable
     @GetMapping("/list")
-    public List<Playlist> listPlaylists(@RequestParam Long ownerId) {
+    public Page<Playlist> listPlaylists(@RequestParam Long ownerId,
+                                        @RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "10") int size) {
         User owner = userRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return playlistService.listPlaylists(owner);
+        return playlistService.listPlaylists(owner, PageRequest.of(page, size));
     }
 
     @GetMapping("/export/{playlistId}/{format}")

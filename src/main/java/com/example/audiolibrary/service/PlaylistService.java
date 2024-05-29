@@ -9,13 +9,14 @@ import com.example.audiolibrary.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,9 +54,13 @@ public class PlaylistService {
         playlistRepository.save(playlist);
     }
 
+//    public List<Playlist> listPlaylists(User owner) {
+//        return playlistRepository.findByOwner(owner);
+//    }
 
-    public List<Playlist> listPlaylists(User owner) {
-        return playlistRepository.findByOwner(owner);
+    //Pageable
+    public Page<Playlist> listPlaylists(User owner, Pageable pageable) {
+        return playlistRepository.findByOwner(owner, pageable);
     }
 
     public File exportPlaylist(Long playlistId, Long userId, String format) throws Exception {

@@ -29,7 +29,6 @@ public class AuthService {
     }
 
     public void logout() {
-        // Handle session termination
     }
 
     public User promoteUser(String username) throws Exception {
