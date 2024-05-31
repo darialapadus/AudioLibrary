@@ -59,8 +59,6 @@ GET /songs/searchByName
 Parameters:
 
 - name: String (name of the song)
-- page: int (page number, default is 0)
-- size: int (page size, default is 10)
 - username: String (name of the user performing the action)
 
   ## Search Songs by Artist
@@ -71,8 +69,6 @@ GET /songs/searchByArtist
 Parameters:
 
 - artist: String (artist of the song)
-- page: int (page number, default is 0)
-- size: int (page size, default is 10)
 - username: String (name of the user performing the action)
 
   ## Playlist Management
